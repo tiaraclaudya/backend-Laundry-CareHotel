@@ -1,0 +1,27 @@
+// Ganti fetch('/api/kontak') dengan ini:
+async function fetchKontak() {
+    const res = await fetch('/api/kontak?limit=100');
+    const result = await res.json();
+    if (result.success) {
+        kontakData = result.data;
+        renderKontak();
+        updateKontakStats();
+    }
+}
+
+// Update markKontakRead function
+async function markKontakRead(id) {
+    await fetch(`/api/kontak/${id}/mark-read`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+    });
+    fetchKontak();
+}
+
+// Update delete kontak function
+async function deleteKontak(id) {
+    if (confirm('Yakin hapus pesan ini?')) {
+        await fetch(`/api/kontak/${id}`, { method: 'DELETE' });
+        fetchKontak();
+    }
+}

@@ -1,0 +1,89 @@
+// This is your Prisma schema file for Hotel Laundry System
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Model untuk menyimpan semua order laundry (cuci lipat & cuci kering)
+model OrderLaundry {
+  id            String   @id @default(uuid())
+  jenisLayanan  JenisLayanan @map("jenis_layanan")
+  namaLengkap   String   @map("nama_lengkap")
+  noTelepon     String   @map("no_telepon")
+  noKamar       String   @map("no_kamar")
+  
+  // Item laundry
+  sprei         Int      @default(0)
+  bajuKaos      Int      @default(0) @map("baju_kaos")
+  celana        Int      @default(0)
+  handuk        Int      @default(0)
+  sarungBantal  Int      @default(0) @map("sarung_bantal")
+  sarungGuling  Int      @default(0) @map("sarung_guling")
+  
+  // Item baru
+  gaunDress     Int      @default(0) @map("gaun_dress")
+  blazer        Int      @default(0)
+  jas           Int      @default(0)
+  kemejaWol     Int      @default(0) @map("kemeja_wol")
+  sweaterWol    Int      @default(0) @map("sweater_wol")
+  sutraSilk     Int      @default(0) @map("sutra_silk")
+  
+  totalHarga    Int      @map("total_harga")
+  tanggal       DateTime @default(now())
+  status        StatusOrder @default(belum_diproses)
+  antarKeKamar Boolean @default(true)
+  
+  @@map("informasi_pelanggan")
+}
+
+// Model untuk form kontak / hubungi kami
+model Kontak {
+  id            String   @id @default(uuid())
+  namaLengkap   String   @map("nama_lengkap")
+  email         String
+  pesan         String   @db.Text
+  tanggal       DateTime @default(now())
+  status        StatusKontak @default(belum_dibaca)
+  
+  @@map("kontak")
+}
+
+// Enum untuk jenis layanan
+enum JenisLayanan {
+  cuci_lipat
+  cuci_kering
+  dry_cleaning
+}
+
+// Enum untuk status order laundry
+enum StatusOrder {
+  belum_diproses
+  sedang_diproses
+  selesai
+  diambil
+}
+
+// Enum untuk status kontak
+enum StatusKontak {
+  belum_dibaca
+  sudah_dibaca
+}
+
+model User {
+    
+    id       String @id @default(uuid())
+    nama     String 
+    password String
+    no_telepon String
+    email String @unique
+    alamat String
+
+@@map("User")
+
+}
