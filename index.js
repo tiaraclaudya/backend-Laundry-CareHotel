@@ -2,10 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import authRoutes from './routes/authRoutes.js';
-import dataHewanRoutes from './routes/informasiPelangganRoutes.js';
-import kontakRoutes from './routes/kontakRoutes.js';
-import informasiPelangganRoutes from './routes/informasiPelangganRoutes.js';
+import authRoutes from './src/routes/authRoutes.js';
+import dataHewanRoutes from './src/routes/informasiPelangganRoutes.js';
+import kontakRoutes from './src/routes/kontakRoutes.js';
+import informasiPelangganRoutes from './src/routes/informasiPelangganRoutes.js';
 
 dotenv.config();
 
