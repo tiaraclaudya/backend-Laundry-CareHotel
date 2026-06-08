@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 console.log("DB URL:", process.env.DATABASE_URL);
 app.use(cors({
-  origin: "http://localhost:5173/"
+  origin: "https://hotel-laundry-care.vercel.app"
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
